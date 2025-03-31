@@ -7,11 +7,11 @@ export default function Home() {
       <h1>Music Dating App</h1>
       <h2>Discover New Music Tailored to Your Taste</h2>
       <div>
-        <Link>
-          <button href="/login">Log In</button>
+        <Link href="/login">
+          <button>Log In</button>
         </Link>
-        <Link>
-          <button href="/signup">Sign Up</button>
+        <Link href="/signup">
+          <button>Sign Up</button>
         </Link>
       </div>
     </div>
