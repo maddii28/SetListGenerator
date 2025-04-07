@@ -18,3 +18,21 @@ def swipe():
     g.db.commit() # save changes
 
     return jsonify({"message": "Swipe recorded"}), 200
+
+@main.route("/get_users_faves", methods=["GET"])
+def get_users_faves():
+    user_id = request.args.get("user_id") # take the userid from the query string
+
+    g.cursor.execute("SELECT songs.* FROM saved_songs JOIN songs ON saved_songs.song_id = songs.id WHERE saved_songs.user_id = %s", (user_id, ))
+    rows = g.cursor.fetchall() # fetch all of the mtching songs
+
+    songs = []
+    for row in rows:
+        song = {
+            "id": row[0],
+            "title": row[1],
+            "artist": row[2]
+        }
+        songs.append(song)
+
+    return jsonify({"user_id": user_id, "saved_songs": songs}), 200
