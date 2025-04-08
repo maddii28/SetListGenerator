@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, g
-from .recommender import update_preferences
+from .recommender import update_preferences, recommend_songs
 
 main = Blueprint('main', __name__)
 
@@ -36,3 +36,11 @@ def get_users_faves():
         songs.append(song)
 
     return jsonify({"user_id": user_id, "saved_songs": songs}), 200
+
+@main.route("/get_song", methods=["GET"])
+def get_song():
+    user_id = request.args.get("user_id")
+
+    recommendation = recommend_songs() # TO DO: add arguments
+
+    return recommendation
